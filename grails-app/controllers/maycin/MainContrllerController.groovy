@@ -9,9 +9,10 @@ import java.security.MessageDigest
 
 class MainContrllerController {
 
-    def index() {
+   def index() {
+       redirect(uri:'/mainContrller/home')
 
-    }
+   }
 
     def registration() {
         render(view: "/registration")
@@ -28,10 +29,17 @@ class MainContrllerController {
             }
         }
         else {
-            render(view: "/index")
+            render(view: "/")
 
         }
 
+    }
+
+
+    def hola()
+    {
+        render("hola")
+        session.invalidate()
     }
 
 
@@ -45,6 +53,10 @@ class MainContrllerController {
         render(enconde)
     }
 
+    def lol ()
+    {
+        render(view: "/index_2")
+    }
     def register() {
         // new user posts his registration details
         if (request.method == 'POST') {
@@ -53,15 +65,16 @@ class MainContrllerController {
 
             if (! u.save()) {
                 // validation failed, render registration page again
-                render (u.getFirstName())
+                render (u.getFirstName()+"aqui")
             } else {
                 // validate/save ok, store user in session, redirect to homepage
                 session.user = u
+
                 redirect(view: '/home')
             }
         } else if (session.user) {
             // don't allow registration while user is logged in
-            redirect(controller:'MainContrller')
+            //redirect(controller:'MainContrller')
         }
         }
 
